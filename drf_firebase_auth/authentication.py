@@ -5,7 +5,7 @@ Authorization header, verifying, and locally authenticating
 Author: Gary Burgmann
 Email: garyburgmann@gmail.com
 Location: Springfield QLD, Australia
-Last update: 2020-05-06
+Last update: 2019-02-10
 """
 import json
 import uuid
@@ -181,17 +181,23 @@ class FirebaseAuthentication(BaseFirebaseAuthentication):
                 raise exceptions.AuthenticationFailed(
                     'User is not registered to the application.'
                 )
-            username = '_'.join(
-                firebase_user.display_name.split(' ') if firebase_user.display_name \
-                else str(uuid.uuid4())
-            )
+            if not api_settings.FIREBASE_USERNAME_MAPPING_FUNCTION:
+                username = '_'.join(
+                    firebase_user.display_name.split(' ') if firebase_user.display_name \
+                    else str(uuid.uuid4())
+                )
+            else:
+                uid = firebase_user.display_name.split if firebase_user.display_name \
+                    else str(uuid.uuid4())
+                username = api_settings.FIREBASE_USERNAME_MAPPING_FUNCTION(uid)
+
             username = username if len(username) <= 30 else username[:30]
             new_user = User.objects.create_user(
                 username=username,
                 email=email
             )
             new_user.last_login = timezone.now()
-            if api_settings.FIREBASE_ATTEMPT_CREATE_WITH_DISPLAY_NAME and firebase_user.display_name is not None:
+            if api_settings.FIREBASE_ATTEMPT_CREATE_WITH_DISPLAY_NAME:
                 display_name = firebase_user.display_name.split()
                 if len(display_name) == 2:
                     new_user.first_name = display_name[0]

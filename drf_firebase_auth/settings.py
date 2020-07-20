@@ -20,6 +20,8 @@ DEFAULTS = {
     'FIREBASE_SERVICE_ACCOUNT_KEY': '',
     # allow creation of new local user in db
     'FIREBASE_CREATE_LOCAL_USER': True,
+    # define custom mapping function from firebase uid to username
+    'FIREBASE_USERNAME_MAPPING_FUNCTION': None,
     # attempt to split firebase user.display_name and set local user
     # first_name and last_name
     'FIREBASE_ATTEMPT_CREATE_WITH_DISPLAY_NAME': True,
