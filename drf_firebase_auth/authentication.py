@@ -187,7 +187,7 @@ class FirebaseAuthentication(BaseFirebaseAuthentication):
                     else str(uuid.uuid4())
                 )
             else:
-                uid = firebase_user.display_name.split if firebase_user.display_name \
+                uid = firebase_user.uid if firebase_user.uid \
                     else str(uuid.uuid4())
                 username = api_settings.FIREBASE_USERNAME_MAPPING_FUNCTION(uid)
 
