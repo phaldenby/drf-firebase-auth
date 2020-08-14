@@ -47,9 +47,6 @@ class BaseFirebaseAuthentication(authentication.BaseAuthentication):
         authorization_header = authentication.get_authorization_header(request)
         if api_settings.ALLOW_ANONYMOUS_REQUESTS and not authorization_header:
             return (AnonymousUser(), None)
-        elif request.path() in api_settings.ALLOWED_ANONYMOUS_ROUTES:
-            return (AnonymousUser(), None)
-
 
         """
         Returns a tuple of len(2) of `User` and the decoded firebase token if

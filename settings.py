@@ -30,10 +30,7 @@ DEFAULTS = {
     # verify that JWT has not been revoked
     'FIREBASE_CHECK_JWT_REVOKED': True,
     # require that firebase user.email_verified is True
-    'FIREBASE_AUTH_EMAIL_VERIFICATION': False,
-    # allow certain routes to be access without authentication
-    'ALLOWED_ANONYMOUS_ROUTES': [],
-
+    'FIREBASE_AUTH_EMAIL_VERIFICATION': False
 }
 
 # List of settings that may be in string import notation.
